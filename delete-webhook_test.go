@@ -1,3 +1,5 @@
+//go:build integration
+
 package telegram
 
 import (
@@ -7,22 +9,22 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestTelegram_DeletWebhook(t *testing.T) {
+func TestTelegram_DeleteWebhook(t *testing.T) {
 	ctx := context.Background()
-	url, api := GetApiData(t)
+	url, api := GetAPIData(t)
 
 	t.Run("1 correct api", func(t *testing.T) {
-		tg := Telegram{Url: url, Token: api}
-		data, err := tg.DeleteWebhook(ctx)
-		require.NoError(t, err, "ctd.DeleteWebhook(ctx)")
-		require.NotNil(t, data, "ctd.DeleteWebhook(ctx)")
-		require.Equal(t, true, data.Ok, "ctd.DeleteWebhook(ctx)")
-		require.Equal(t, true, data.Result, "ctd.DeleteWebhook(ctx)")
+		tg := Telegram{URL: url, Token: api}
+		data, err := tg.DeleteWebhook(ctx, true)
+		require.NoError(t, err)
+		require.NotNil(t, data)
+		require.True(t, data.OK)
+		require.True(t, data.Result)
 	})
 
 	t.Run("2 incorrect api", func(t *testing.T) {
-		tg := Telegram{Url: url, Token: "invalid"}
-		_, err := tg.DeleteWebhook(ctx)
-		require.ErrorIs(t, err, ErrorInvalidToken, "ctd.DeleteWebhook(ctx)")
+		tg := Telegram{URL: url, Token: "invalid"}
+		_, err := tg.DeleteWebhook(ctx, true)
+		require.ErrorIs(t, err, ErrInvalidToken)
 	})
 }

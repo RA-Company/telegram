@@ -1,5 +1,7 @@
-tests:
-	@. ./.test.env && go clean -testcache && go test -cover -race ./...
+.PHONY: tests tests-integration
 
-%::
-	@true
+tests:
+	@go test -count=1 -cover -race ./...
+
+tests-integration:
+	@. ./.test.env && go test -count=1 -tags integration -cover -race ./...
