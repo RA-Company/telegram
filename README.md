@@ -7,7 +7,7 @@ Simple telegram library
 go get github.com/ra-company/telegram
 ```
 
-Requires Go 1.26.4 or newer.
+Requires Go 1.26 or newer.
 
 ## Quick start
 
