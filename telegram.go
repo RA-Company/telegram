@@ -259,7 +259,7 @@ func (tg *Telegram) doRequest(ctx context.Context, method, path string, payload 
 	req.Header.Set("Content-Type", "application/json")
 
 	res, err := httpClient.Do(req)
-	logging.Logs.Debugf(ctx, "API %s %s (%.2f ms)", method, tg.redact(reqURL), float64(time.Since(start))/float64(time.Millisecond))
+	logging.Logs.Debugf(ctx, "\033[1m\033[36mAPI %s (%.2f ms)\033[1m \033[35m%s\033[0m", method, float64(time.Since(start))/float64(time.Millisecond), tg.redact(reqURL))
 	if err != nil {
 		return nil, tg.redactError(err)
 	}
